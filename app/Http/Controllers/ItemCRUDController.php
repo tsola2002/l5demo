@@ -75,7 +75,8 @@ class ItemCRUDController extends Controller
      */
     public function edit($id)
     {
-
+        $item = Item::find($id);
+        return view('ItemCRUD.edit',compact('item'));
     }
 
     /**
@@ -87,9 +88,14 @@ class ItemCRUDController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
 
-
-
+        Item::find($id)->update($request->all());
+        return redirect()->route('itemCRUD.index')
+            ->with('success','Item updated successfully');
     }
 
     /**
