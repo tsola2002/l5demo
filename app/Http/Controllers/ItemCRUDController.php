@@ -106,6 +106,8 @@ class ItemCRUDController extends Controller
      */
     public function destroy($id)
     {
-
+        Item::find($id)->delete();
+        return redirect()->route('itemCRUD.index')
+            ->with('success','Item deleted successfully');
     }
 }
