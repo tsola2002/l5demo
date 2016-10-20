@@ -34,7 +34,7 @@ class ItemCRUDController extends Controller
      */
     public function create()
     {
-
+        return view('ItemCRUD.create');
     }
 
     /**
@@ -45,7 +45,14 @@ class ItemCRUDController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
 
+        Item::create($request->all());
+        return redirect()->route('itemCRUD.index')
+            ->with('success','Item created successfully');
     }
 
     /**
